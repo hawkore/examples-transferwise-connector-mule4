@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="sample-payout-guide-suite.xml" />
+	<munit:test name="sample-payout-guide-suite-sample-quotes-createTest" description="Test" doc:id="500248d0-526c-466f-be71-e1d80e58dae8" >
+		<munit:execution >
+		   <munit:set-event doc:name="Get profile event" doc:id="fc7afcce-b056-4447-a56e-83adb431959a" >
+				<munit:variables >
+					<munit:variable key="accessToken" value="${api.sandbox.access.token}" />
+				</munit:variables>
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to sample-user-profiles-list" doc:id="792a2a49-7c64-4ee2-ba7b-77ac54b8995f" name="sample-user-profiles-list"/>		
+			<set-variable value='#[payload[0]]' doc:name="profile" doc:id="49147cab-84ca-4afa-8c7d-767513a9341b" variableName="profile"/>		
+		   <set-variable value="#[vars.profile.id]" doc:name="profileId" doc:id="8db393cd-aeb2-4f78-8467-40bd3c372563" variableName="profileId"/>
+			<set-payload value='#[output application/java
+---
+{ 
+    "source": "GBP",
+    "target": "BDT",
+    "sourceAmount": "100",
+    "rateType": "FIXED",
+    "type": "BALANCE_CONVERSION"
+} as Object {
+	class : "com.hawkore.mule.extensions.transferwise.api.model.CreateQuoteRequest"
+}]' doc:name="quote to create" doc:id="303300c9-1374-4a08-8ea3-d5320363a3f3" />
+			<flow-ref doc:name="Flow-ref to sample-quotes-create" doc:id="36cb135f-99e8-46cc-b216-78b603be01e2" name="sample-quotes-create"/>
+			<set-variable value='#[payload]' doc:name="createdQuote" doc:id="4fef26fc-2e18-4ae7-9bde-d0506f5a78f3" variableName="createdQuote"/>	
+			<set-variable value="#[vars.createdQuote.id]" doc:name="quoteId" doc:id="124cfa00-bc1c-4b3d-b66c-231c498faa30" variableName="quoteId"/>
+			<flow-ref doc:name="Flow-ref to sample-recipient-account-get-requirements" doc:id="8781de61-7ad1-4902-8c22-a61179edf81a" name="sample-recipient-account-get-requirements"/>
+			<set-payload value='#[output application/java
+---
+{
+    "type": "bangladesh",
+    "accountHolderName":"Joe Bangladesh A",
+    "currency":"BDT",
+    "country": "BD",
+    "details" : {
+        "bankCode": "025",
+        "legalType": "PRIVATE",
+        "branchCode":"025060009",
+        "accountNumber":"5000000005",
+        "address":{
+	        	"country":"BD",
+	        	"city":"Somewhere",
+	        	"firstLine":"1 A road",
+	        	"postCode":"11111"
+        	}
+     }
+} as Object {
+	class : "com.hawkore.mule.extensions.transferwise.api.model.CreateAccountRequest"
+}]' doc:name="recipient account to create" doc:id="fd5ba7da-b3c9-40f8-b353-765c0f2c1bbb" />		
+			<flow-ref doc:name="Flow-ref to sample-recipient-account-create" doc:id="fed0e643-c568-47ff-8ce7-c45dac830200" name="sample-recipient-account-create"/>			
+			<set-variable value='#[payload]' doc:name="createdRecipientAccount" doc:id="ed198a22-71af-4937-9ce7-9bef6d547ac4" variableName="createdRecipientAccount"/>
+			<set-payload value='#[output application/java
+---
+{   
+    "targetAccount": vars.createdRecipientAccount.id,   
+    "quote": vars.createdQuote.id,
+    "details" : {
+        "reference" : "Sample reference"
+    },
+    "customerTransactionId" : uuid() as String
+} as Object {
+	class : "com.hawkore.mule.extensions.transferwise.api.model.CreateTransferRequest"
+}]' doc:name="transfer to create" doc:id="8bbbd9ee-7c56-4617-a44a-ac13615a2926" />
+			<flow-ref doc:name="Flow-ref to sample-transfers-create-transfer" doc:id="84de4958-5302-400e-9e7d-a5598ddb8c63" name="sample-transfers-create-transfer"/>
+			<set-variable value='#[payload]' doc:name="createdTransfer" doc:id="a17ff670-3a7c-4a23-8427-a469fbbd8b10" variableName="createdTransfer"/>			
+			<set-variable value="#[vars.createdTransfer.id]" doc:name="transferId" doc:id="94551f8e-a653-4398-beea-df1e1f1e0000" variableName="transferId"/>
+			<flow-ref doc:name="Flow-ref to sample-transfers-fund-transfer" doc:id="f9ad8947-4dd6-40ea-937c-555d1f05b760" name="sample-transfers-fund-transfer"/>
+			<flow-ref doc:name="Flow-ref to sample-transfers-delivery-estimate" doc:id="35ddb47a-7a02-4e3e-b2cd-a4572e4c36f4" name="sample-transfers-delivery-estimate"/>
+			<set-variable value="PROCESSING" doc:name="newStatus PROCESSING" doc:id="ba22a98f-c0a7-467a-bfc5-c607f243c23d" variableName="newStatus" />
+			<flow-ref doc:name="Flow Reference to sample-simulate-transfer-processing" doc:id="6cf3b3ac-a277-4b0f-836a-16a129a4e45f" name="sample-simulate-transfer-processing" />
+			<set-variable value="FUNDS_CONVERTED" doc:name="newStatus FUNDS_CONVERTED" doc:id="5d0193f1-0aa5-4f18-bbdb-37e623284877" variableName="newStatus"/>
+			<flow-ref doc:name="Flow Reference to sample-simulate-transfer-processing" doc:id="ef52e10d-cf80-4656-abf4-82c11eb64ab6" name="sample-simulate-transfer-processing"/>
+			<set-variable value="OUTGOING_PAYMENT_SENT" doc:name="newStatus OUTGOING_PAYMENT_SENT" doc:id="d38e2979-34e9-4d19-bc2c-f94470a89297" variableName="newStatus" />
+			<flow-ref doc:name="Flow Reference to sample-simulate-transfer-processing" doc:id="987ba22f-c19b-49cb-a580-c6aa31735618" name="sample-simulate-transfer-processing" />
+			<flow-ref doc:name="Flow Reference to sample-transfers-receipt-pdf" doc:id="5a67358d-d9f8-4697-97c9-c86f2b985f5a" name="sample-transfers-receipt-pdf"/>
+
+
+
+		</munit:execution>
+	</munit:test>
+
+</mule>

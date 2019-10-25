@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:transfer-wise="http://www.mulesoft.org/schema/mule/transfer-wise"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/transfer-wise http://www.mulesoft.org/schema/mule/transfer-wise/current/mule-transfer-wise.xsd">
+	<flow name="sample-profile-webhooks-create" doc:id="13772f13-57d8-425e-9183-f8f60a6bab84">
+		<transfer-wise:webhooks-profiles-create
+			doc:name="Webhooks (Profile) - Create subscription" doc:id="b2268c55-f2f1-4cb0-83b3-6423ae9b1447"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			profileId="#[vars.profileId]" />
+	</flow>
+	<flow name="sample-profile-webhooks-delete-by-id" doc:id="f92d1435-d788-477e-ba57-bd5993948010">
+		<transfer-wise:webhooks-profiles-delete-by-id
+			doc:name="Webhooks (Profile) - Delete subscription by id" doc:id="f0ef3a6a-fe3d-4b62-baa7-74e91bf0ca38"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			profileId="#[vars.profileId]" id="#[vars.subscriptionId]" />
+	</flow>
+	<flow name="sample-profile-webhooks-get-by-id" doc:id="21216f7a-c576-424d-9e8d-69fe9b7b5d90">
+		<transfer-wise:webhooks-profiles-get-by-id
+			doc:name="Webhooks (Profile) - Get subscription by id" doc:id="3aa8cd20-9d15-47ff-8e1e-df29012bd861"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			profileId="#[vars.profileId]" id="#[vars.subscriptionId]" />
+	</flow>
+	<flow name="sample-profile-webhooks-list" doc:id="54fc2feb-1b5d-4346-b104-21bfb27af2d0">
+		<transfer-wise:webhooks-profiles-list
+			doc:name="Webhooks (Profile) - Get subscription list" doc:id="d8fae38d-33a8-47c7-ad2f-add61860a864"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			profileId="#[vars.profileId]" " />
+	</flow>
+</mule>

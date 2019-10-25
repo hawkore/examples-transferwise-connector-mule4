@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="sample-webhook-events-test-suite.xml" />
+	<munit:test name="sample-webhook-events-transfer-status-change-eventTest" description="Test" doc:id="5b401541-d5cc-430e-bc10-df153a5da4d3" >
+		<munit:execution >
+			<set-variable value='#[output application/json
+---
+{
+  "data": {
+    "resource": {
+      "id": 99330022,
+      "profile_id": 11121314,
+      "account_id": 1514131211,
+      "type": "transfer"
+    },
+    "current_state": "processing",
+    "previous_state": "incoming_payment_waiting",
+    "occurred_at": "2019-10-14T12:43:37Z"
+  },
+  "subscription_id": "db463333-3333-3333-3333-185d1ee81585",
+  "event_type": "transfers#state-change",
+  "schema_version": "2.0.0",
+  "sent_at": "2019-10-14T12:43:37Z"
+}]' doc:name="transfer-status-change-event" doc:id="83a30bde-d1cd-4908-b3d2-8af675c3b904" variableName="event"/>
+			<munit:set-event doc:name="Set Event" doc:id="09446892-e46e-4351-a2bf-3c71ab8d7e99" >
+				<munit:payload encoding="UTF-8" mediaType="application/json" value="#[vars.event]"/>
+				<munit:attributes value="#[{headers : { 'X-Signature' : 'dGVzdA=='}}]" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to sample-webhook-events-transfer-status-change-event" doc:id="5da66009-5cac-4739-8b0b-806e0baea04e" name="sample-webhook-events-transfer-status-change-event"/>
+		</munit:execution>
+	</munit:test>
+	<munit:test name="sample-webhook-events-transfer-issue-eventTest" description="Test" doc:id="e2863a2b-e5a0-4172-aa93-bfa03a6092c1" >
+		<munit:execution >
+			<set-variable value='#[output application/json
+---
+{
+  "data": {
+    "resource": {
+      "id": 99330022,
+      "profile_id": 11121314,
+      "account_id": 1514131211,
+      "type": "transfer"
+    },
+    "active_cases": ["deposit_amount_less_invoice"]
+  },
+  "subscription_id": "db463333-3333-3333-3333-185d1ee81585",
+  "event_type": "transfers#active-cases",
+  "schema_version": "2.0.0",
+  "sent_at": "2019-10-14T12:43:37Z"
+}]' doc:name="transfer-issue-event" doc:id="a8542748-44d5-40e3-962e-50a4cbb9eb21" variableName="event"/>
+			<munit:set-event doc:name="Set Event" doc:id="79882eaa-4959-4208-8419-50d4a202b644" >
+				<munit:payload encoding="UTF-8" mediaType="application/json" value="#[vars.event]"/>
+				<munit:attributes value="#[{headers : { 'X-Signature' : 'dGVzdA=='}}]" />
+			</munit:set-event>		
+			<flow-ref doc:name="Flow-ref to sample-webhook-events-transfer-issue-event" doc:id="c3af94cb-bcc5-433e-8ef7-a36a4b99afe3" name="sample-webhook-events-transfer-issue-event"/>
+		</munit:execution>
+	</munit:test>
+	<munit:test name="sample-webhook-events-balance-deposit-eventTest" description="Test" doc:id="06f8c5ec-db35-4401-8b56-daff8f8be887" >
+		<munit:execution >
+			<set-variable value='#[output application/json
+---
+{
+  "data": {
+    "resource": {
+      "id": 99887766,
+      "type": "balance-account",
+      "profile_id": 11121314
+    },
+    "amount": 50.00,
+    "currency": "EUR",
+    "transaction_type": "credit",
+    "post_transaction_balance_amount": 150,
+    "occurred_at": "2019-10-14T12:43:37Z"
+  },
+  "subscription_id": "db463333-3333-3333-3333-185d1ee81585",
+  "event_type": "balances#credit",
+  "schema_version": "2.0.0",
+  "sent_at": "2019-10-14T12:43:37Z"
+}]' doc:name="balance-deposit-event" doc:id="24404b71-13dc-4ca5-acbb-51ccf311c1ae" variableName="event"/>
+			<munit:set-event doc:name="Set Event" doc:id="01ce2699-b2ac-4149-aef6-7a8415c78064" >
+				<munit:payload encoding="UTF-8" mediaType="application/json" value="#[vars.event]"/>
+				<munit:attributes value="#[{headers : { 'X-Signature' : 'dGVzdA=='}}]" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to sample-webhook-events-balance-deposit-event" doc:id="69189ee3-afe0-49d1-8d0a-af47a757e8c4" name="sample-webhook-events-balance-deposit-event"/>
+		</munit:execution>
+	</munit:test>
+
+</mule>

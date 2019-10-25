@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:transfer-wise="http://www.mulesoft.org/schema/mule/transfer-wise" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/transfer-wise http://www.mulesoft.org/schema/mule/transfer-wise/current/mule-transfer-wise.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="sample-recipient-account-list" doc:id="caa046ce-f9fa-4659-bf35-e81ddfa46ec4">
+		<transfer-wise:recipient-accounts-list
+			doc:name="Recipient Accounts - Get accounts list" doc:id="65bf9a8b-6407-43d1-9acf-8c93a0242cd0"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]">
+			<transfer-wise:accounts-filter
+				profileId="#[vars.profileId]" currency="#[vars.currency]" />
+		</transfer-wise:recipient-accounts-list>
+	</flow>
+	<flow name="sample-recipient-account-get-by-id" doc:id="d5477f7c-41bc-4890-8537-5c2821257296">
+		<transfer-wise:recipient-accounts-get-by-id
+			doc:name="Recipient Accounts - Get account by id" doc:id="f1ec7a13-d1e3-49d8-ac65-512a365d6842"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			accountId="#[vars.accountId]" />
+	</flow>
+	<flow name="sample-recipient-account-delete-by-id" doc:id="d8c4931e-1ddc-4656-a763-e0f23b36f5d6">
+		<transfer-wise:recipient-accounts-delete-by-id
+			doc:name="Recipient Accounts - Delete account by id" doc:id="7a0e9fa8-9956-4f22-8a08-489347a15b51"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			accountId="#[vars.accountId]" />
+	</flow>
+	<flow name="sample-recipient-account-get-requirements" doc:id="d427558b-024d-4305-86de-1d21290ef7fd">
+		<transfer-wise:recipient-accounts-get-requirements
+			doc:name="Recipient Accounts - Get requirements" doc:id="86971405-b24f-4c45-b10d-62dd6ce2a727"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			quoteId="#[vars.quoteId]" />
+	</flow>
+	<flow name="sample-recipient-account-update-requirements" doc:id="7cb9e5d2-90ea-497b-b5c5-cdd9f93d434a">
+		<transfer-wise:recipient-accounts-update-requirements
+			doc:name="Recipient Accounts - Update requirements" doc:id="06c8fd00-d749-47dd-8ec8-f63cf92cde8d"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			quoteId="#[vars.quoteId]" />
+	</flow>
+	<flow name="sample-recipient-account-validate-fields" doc:id="901413af-dfbc-40ef-94ec-dc154191bd14">
+		<transfer-wise:recipient-accounts-validate-fields
+			doc:name="Recipient Accounts - Validate fields" doc:id="48172c45-177c-4be7-973c-339b01f7960f"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			validator="#[vars.validator]" parameters="#[vars.validatorParameters]">
+		</transfer-wise:recipient-accounts-validate-fields>
+	</flow>
+	<flow name="sample-recipient-account-create" doc:id="10df99da-e919-4cb4-ba5d-ca999f99d473">
+		<transfer-wise:recipient-accounts-create
+			doc:name="Recipient Accounts - create account" doc:id="9a074221-98ea-432c-b55c-ba2146485797"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]" />
+	</flow>
+</mule>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:transfer-wise="http://www.mulesoft.org/schema/mule/transfer-wise"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/transfer-wise http://www.mulesoft.org/schema/mule/transfer-wise/current/mule-transfer-wise.xsd">
+	<flow name="sample-banks-get-bank-branches" doc:id="cba2692b-88b2-47c6-a2cd-43e4d2ffdf42">
+		<transfer-wise:banks-get-bank-branches
+			doc:name="Banks - Get Bank branches" doc:id="c8323503-9c9e-4bc7-b5b9-10695cf4c7f9"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			countryCode="#[vars.countryCode]" bankCode="#[vars.bankCode]" />
+	</flow>
+	<flow name="sample-banks-get-banks" doc:id="89be68f5-cca8-4891-bb28-4e886faa7c9e">
+		<transfer-wise:banks-get-banks doc:name="Banks - Get Banks"
+			doc:id="eb5de8ab-7e4e-4179-9948-f42a99076049" config-ref="TransferWise_Config"
+			accessToken="#[vars.accessToken]" countryCode="#[vars.countryCode]" />
+	</flow>
+</mule>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:transfer-wise="http://www.mulesoft.org/schema/mule/transfer-wise"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/transfer-wise http://www.mulesoft.org/schema/mule/transfer-wise/current/mule-transfer-wise.xsd">
+	<flow name="sample-countries-get-countries" doc:id="de8aa13e-c76c-4323-899d-edc93cbae8fa">
+		<transfer-wise:countries-get-countries
+			doc:name="Countries - Get Countries" doc:id="5fc22d30-ae5d-4370-93c8-309fa1b7f8c7"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]" />
+	</flow>
+	<flow name="sample-countries-get-states" doc:id="f956ac9f-89b8-4c69-bfad-0d207053a971">
+		<transfer-wise:countries-get-states
+			doc:name="Countries - Get States" doc:id="923e17ac-ba6e-4581-9097-1e87868da19a"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			countryCode="#[vars.countryCode]" />
+	</flow>
+</mule>

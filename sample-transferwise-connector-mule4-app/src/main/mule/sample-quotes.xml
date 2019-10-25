@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:transfer-wise="http://www.mulesoft.org/schema/mule/transfer-wise"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/transfer-wise http://www.mulesoft.org/schema/mule/transfer-wise/current/mule-transfer-wise.xsd">
+	<flow name="sample-quotes-create" doc:id="6acab079-bfd6-456e-a04f-4d13112be34c">
+		<transfer-wise:quotes-create doc:name="Quotes - Create quote"
+			doc:id="fe9f656a-ae3c-4493-8aee-d0840ca99222" config-ref="TransferWise_Config"
+			accessToken="#[vars.accessToken]" />
+	</flow>
+	<flow name="sample-quotes-get-payin-methods" doc:id="72fe369c-3577-4cca-9f02-4211be8cfaef">
+		<transfer-wise:quotes-get-payin-methods
+			doc:name="Quotes - Get Pay-in methods" doc:id="540ab748-17ad-4fc8-a5b5-0e8881291e61"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			quoteId="#[vars.quoteId]" />
+	</flow>
+	<flow name="sample-quotes-get-by-id" doc:id="c6fdf3e5-1830-4e59-81b6-a092c0a4cea0">
+		<transfer-wise:quotes-get-by-id
+			doc:name="Quotes - Get quote by id" doc:id="027d5672-880a-4704-a498-7e88e955c4c8"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			quoteId="#[vars.quoteId]" />
+	</flow>
+	<flow name="sample-quotes-get-temporary-quote" doc:id="872798ff-778a-460a-9b71-cc49c0360f5b">
+		<transfer-wise:quotes-get-temporary-quote
+			doc:name="Quotes - Get temporary quote" doc:id="9db93a23-d51d-45a6-9bfa-413bae87d504"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]">
+			<transfer-wise:temporary-quote-request
+				sourceCurrencyCode="#[vars.sourceCurrency]" sourceAmount="#[vars.sourceAmmount]"
+				targetCurrencyCode="#[vars.targetCurrency]" targetAmount="#[vars.targetAmmount]" />
+		</transfer-wise:quotes-get-temporary-quote>
+	</flow>
+</mule>

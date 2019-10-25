@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="sample-recipient-account-test-suite.xml" />
+	<munit:test name="sample-recipient-account-test-suite-sample-recipient-account-listTest" description="Test" doc:id="b8106f91-751f-4e98-b884-22cab5a81de0" >
+		<munit:execution >
+				<munit:set-event doc:name="Set Event" doc:id="4097e6f4-e918-47c7-a947-e7769bd54e8d" >
+				<munit:variables >
+					<munit:variable key="accessToken" value="${api.sandbox.access.token}" />
+				</munit:variables>
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to sample-recipient-account-list" doc:id="23e4b5c8-676b-4826-bf1e-c26a9f1b9e3b" name="sample-recipient-account-list"/>
+		</munit:execution>
+	</munit:test>
+	<munit:test name="sample-recipient-account-test-suite-sample-recipient-account-createTest" description="Test" doc:id="1bbf097e-93f8-4254-af51-8feb2edf7c5b" >
+		<munit:execution >
+			<set-variable value='#[output application/java
+---
+{
+    "type": "bangladesh",
+    "accountHolderName":"Joe Bangladesh A",
+    "currency":"BDT",
+    "country": "BD",
+    "details" : {
+        "bankCode": "025",
+        "legalType": "PRIVATE",
+        "branchCode":"025060009",
+        "accountNumber":"5000000005",
+        "address":{
+	        	"country":"BD",
+	        	"city":"Somewhere",
+	        	"firstLine":"1 A road",
+	        	"postCode":"11111"
+        	}
+     }
+} as Object {
+	class : "com.hawkore.mule.extensions.transferwise.api.model.CreateAccountRequest"
+}]' doc:name="account" doc:id="21349d3d-4caf-4253-8770-2d994993768f" variableName="account"/>
+			<munit:set-event doc:name="Set Event" doc:id="fa446652-e916-4bea-82c7-0deca60b11b9" >
+				<munit:payload value="#[vars.account]" />
+				<munit:variables >
+					<munit:variable key="accessToken" value="${api.sandbox.access.token}" />
+				</munit:variables>
+			</munit:set-event>		
+			<flow-ref doc:name="Flow-ref to sample-recipient-account-create" doc:id="fdc1fa65-e21c-44e5-889d-2a5456a1349b" name="sample-recipient-account-create"/>
+			<set-variable value='#[payload.id]' doc:name="accountId" doc:id="4f4bd9a6-0b59-4a19-bf87-46457e5bcd4a" variableName="accountId"/>	
+			<munit:set-event doc:name="Set Event" doc:id="9cf20f07-7d0e-4efd-9dc9-3486064b99e3" >
+				<munit:variables >
+					<munit:variable key="accessToken" value="${api.sandbox.access.token}" />
+					<munit:variable key="accountId" value="#[vars.accountId]" />
+				</munit:variables>
+			</munit:set-event>
+			<flow-ref doc:name="Flow Reference to sample-recipient-account-get-by-id" doc:id="c6b4fa1b-0e23-4aba-8f80-12c28b0c3a39" name="sample-recipient-account-get-by-id"/>
+			<munit:set-event doc:name="Set Event" doc:id="95fa96cd-740c-4d66-83ac-71219b66684c" >
+				<munit:variables >
+					<munit:variable key="accessToken" value="${api.sandbox.access.token}" />
+					<munit:variable key="accountId" value="#[vars.accountId]" />
+				</munit:variables>
+			</munit:set-event>		
+			<flow-ref doc:name="Flow Reference to sample-borderless-accounts-delete-by-id" doc:id="7134d114-f405-4257-8673-12097f69957a" name="sample-recipient-account-delete-by-id"/>
+		</munit:execution>
+	</munit:test>
+	<munit:test name="sample-recipient-account-test-suite-sample-recipient-account-createValidationTest" description="Test" doc:id="4c002582-0da7-4838-8c36-10d5ecd30837" expectedErrorType="TRANSFER-WISE:INVALID_PARAMETER">
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="e9151934-dc24-476c-b2aa-552c4b02b2f2" >
+				<munit:variables >
+					<munit:variable key="accessToken" value="${api.sandbox.access.token}" />
+				</munit:variables>
+			</munit:set-event>
+			<flow-ref doc:name="sample-user-profiles-list" doc:id="b1a45d95-72e7-4dec-b1e1-df262b96b46b" name="sample-user-profiles-list"/>
+			<set-variable value='#[output application/java
+---
+  {
+    "accountHolderName": "Name Here",
+    "currency": "EUR",
+    "type": "iban",
+    "country": "IT",
+    "details": {
+        "IBAN" : "IT 00 H 00000 00000 000000000000"
+    }
+  } as Object {
+	class : "com.hawkore.mule.extensions.transferwise.api.model.CreateAccountRequest"
+}]' doc:name="account" doc:id="0a6520d9-8341-4a8d-a4b6-c279b10511e0" variableName="account"/>
+			<munit:set-event doc:name="Set Event" doc:id="bda83091-9f35-4d8b-a217-385ded5b2aa8" >
+				<munit:payload value="#[vars.account]" />
+				<munit:variables >
+					<munit:variable key="accessToken" value="${api.sandbox.access.token}" />
+				</munit:variables>
+			</munit:set-event>		
+			<flow-ref doc:name="Flow-ref to sample-recipient-account-create" doc:id="9d12ab54-ac91-40fa-b0b9-43ecddb92aa8" name="sample-recipient-account-create"/>
+		</munit:execution>
+	</munit:test>
+</mule>

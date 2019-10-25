@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:transfer-wise="http://www.mulesoft.org/schema/mule/transfer-wise"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/transfer-wise http://www.mulesoft.org/schema/mule/transfer-wise/current/mule-transfer-wise.xsd">
+	<flow name="sample-terms-and-conditions" doc:id="24333987-c775-4ba2-8bbf-63efa7e8c56f">
+		<transfer-wise:terms-get-html
+			doc:name="Terms and Conditions - Get in HTML format" doc:id="d5283134-7d52-4a83-98e6-ba6c90a2acfb"
+			config-ref="TransferWise_Config" />
+	</flow>
+</mule>

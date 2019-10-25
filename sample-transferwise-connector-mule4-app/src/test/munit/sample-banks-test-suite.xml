@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="sample-banks-test-suite.xml" />
+	<munit:test name="sample-banks-get-bank-branchesTest" description="Test" doc:id="0fd22a60-bdf7-426b-805f-ad0b4a2f0163" >
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="c81414a3-37c8-4dac-80fa-979a8a7b0654" >
+				<munit:variables >
+					<munit:variable key="countryCode" value="HK" />
+					<munit:variable key="bankCode" value="552" />
+					<munit:variable key="accessToken" value="${api.sandbox.access.token}" />
+				</munit:variables>
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to sample-banks-get-bank-branches" doc:id="026a3579-3456-4a74-89a5-c5e719793166" name="sample-banks-get-bank-branches"/>
+		</munit:execution>
+	</munit:test>
+	<munit:test name="sample-banks-get-banksTest" description="Test" doc:id="c608c60c-da94-4429-b05c-776ba8ce9dc2" >
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="1c7ed86d-4b59-4a30-890f-bdf1a3b8f9fb" >
+				<munit:variables >
+					<munit:variable key="countryCode" value="HK" />
+					<munit:variable key="accessToken" value="${api.sandbox.access.token}" />
+				</munit:variables>
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to sample-banks-get-banks" doc:id="2c816399-8203-4c25-a4d1-7e1edc3a8f99" name="sample-banks-get-banks"/>
+		</munit:execution>
+	</munit:test>
+
+</mule>

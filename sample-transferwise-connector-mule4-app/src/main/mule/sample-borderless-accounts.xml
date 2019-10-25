@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:transfer-wise="http://www.mulesoft.org/schema/mule/transfer-wise"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/transfer-wise http://www.mulesoft.org/schema/mule/transfer-wise/current/mule-transfer-wise.xsd">
+	<flow name="sample-borderless-accounts-conversion" doc:id="56925f9b-a280-41a3-a41d-31f067d1b39b">
+		<transfer-wise:borderless-accounts-conversion
+			quoteId="#[vars.quoteId]" doc:name="Borderless Accounts - Convert"
+			doc:id="2227cd1f-76b2-4ae7-ab01-6f07e7ba45b0" config-ref="TransferWise_Config"
+			accessToken="#[vars.accessToken]" borderlessAccountId="#[vars.accountId]"
+			xIdempotenceUuid="#[vars.idempotenceUUID]" />
+	</flow>
+	<flow name="sample-borderless-accounts-get-by-id" doc:id="4a24e4bc-cbb5-4378-aec8-a5a0249e4b56">
+		<transfer-wise:borderless-accounts-get-by-id
+			doc:name="Borderless Accounts - Get account by id" doc:id="18154e06-dc45-421c-9d32-ad84ac7f545a"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			borderlessAccountId="#[vars.accountId]" />
+	</flow>
+	<flow name="sample-borderless-accounts-list" doc:id="cc8f1eb8-cc1a-4e16-8d60-d793f682abfd">
+		<transfer-wise:borderless-accounts-list
+			doc:name="Borderless Accounts - Get accounts list" doc:id="957c32b6-e1d3-46fb-bc40-a5ec1da9e0a4"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			profileId="#[vars.profileId]" />
+	</flow>
+	<flow name="sample-borderless-accounts-currency-pairs" doc:id="de4b84c8-9942-45e1-bcd9-a6fef9145689">
+		<transfer-wise:borderless-accounts-currency-pairs
+			doc:name="Borderless Accounts - Get currency pairs" doc:id="9868b25a-6f74-4c88-8375-b08c1e892bb1"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]" />
+	</flow>
+	<flow name="sample-borderless-accounts-balance-currencies" doc:id="3da1c4f0-81e0-4271-bae3-744fd7d94636">
+		<transfer-wise:borderless-accounts-balance-currencies
+			doc:name="Borderless Accounts - Get balance currencies" doc:id="2ae8a407-92fe-4b7e-956e-f52cae2e0170"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]" />
+	</flow>
+	<flow name="sample-borderless-accounts-statement" doc:id="c31fe65a-989b-4c9f-b5bd-08189b85b6a6">
+		<transfer-wise:borderless-accounts-statement
+			doc:name="Borderless Accounts - Get statement" doc:id="eff7d0cb-2e94-4872-a9f1-24107667f5cc"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			borderlessAccountId="#[vars.accountId]">
+			<transfer-wise:statement-filter
+				intervalStart="#[vars.start]" intervalEnd="#[vars.end]" currency="#[vars.currency]" />
+		</transfer-wise:borderless-accounts-statement>
+	</flow>
+	<flow name="sample-borderless-accounts-transactions" doc:id="8f2a05a0-4005-41e2-9f65-7b22451277c3">
+		<transfer-wise:borderless-accounts-transactions
+			doc:name="Borderless Accounts - Get transactions list" doc:id="33b8b006-987e-462a-8963-3c61c02039f1"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			borderlessAccountId="#[vars.accountId]">
+			<transfer-wise:transactions-filter
+				pageSize="10" />
+		</transfer-wise:borderless-accounts-transactions>
+	</flow>
+</mule>

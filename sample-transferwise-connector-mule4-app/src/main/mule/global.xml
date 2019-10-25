@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:file="http://www.mulesoft.org/schema/mule/file"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:transfer-wise="http://www.mulesoft.org/schema/mule/transfer-wise"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd 
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/transfer-wise http://www.mulesoft.org/schema/mule/transfer-wise/current/mule-transfer-wise.xsd">
+	<configuration-properties doc:name="Configuration properties"
+		doc:id="0c37791a-64dd-4d6e-bb3d-288e80c5e9ff" file="transferwise.properties" />
+	<transfer-wise:config name="TransferWise_Config"
+		doc:name="TransferWise Config" doc:id="9aeea0d6-3e67-43be-a571-b72c91206139"
+		clientKey="${api.subscriptions.application.clientKey}">
+		<transfer-wise:connection clientId="${api.credential.clientId}"
+			clientSecret="${api.credential.clientSecret}" baseApiUrl="${api.base.url}" />
+	</transfer-wise:config>
+	<file:config name="File_Config" doc:name="File Config" doc:id="a593b151-d105-4806-8d01-6bb89511d17f" >
+		<file:connection workingDir="${java.io.tmpdir}" />
+	</file:config>
+	<http:listener-config name="HTTP_LISTENER_TO_RECEIVE_TRANSFER_WISE_MESSAGES"
+		doc:name="HTTP Listener config" doc:id="c11c78e9-a2c7-435c-8c51-94895f5bec08"
+		doc:description="This endpoint configuration is intended to receive messages (oauth tokens, webhook events) from TransferWise services">
+		<http:listener-connection host="0.0.0.0"
+			port="8081" />
+	</http:listener-config>
+</mule>

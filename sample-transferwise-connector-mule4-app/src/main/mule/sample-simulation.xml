@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:transfer-wise="http://www.mulesoft.org/schema/mule/transfer-wise"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/transfer-wise http://www.mulesoft.org/schema/mule/transfer-wise/current/mule-transfer-wise.xsd">
+	<flow name="sample-simulate-transfer-processing" doc:id="60f562d1-c8d8-4a4d-91a5-04ab9ef7adba">
+		<transfer-wise:simulate-transfer-processing
+			doc:name="Simulation - Transfer Processing" doc:id="efb10d87-25ff-4c74-9eeb-ba36cbb71820"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			transferId="#[vars.transferId]" newStatus="#[vars.newStatus]" />
+	</flow>
+</mule>

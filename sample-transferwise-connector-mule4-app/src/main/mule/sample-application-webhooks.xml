@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:transfer-wise="http://www.mulesoft.org/schema/mule/transfer-wise"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/transfer-wise http://www.mulesoft.org/schema/mule/transfer-wise/current/mule-transfer-wise.xsd">
+	<flow name="sample-application-webhooks-create" doc:id="d943fbb7-3f45-42b9-bd3c-bbfc708619c0">
+		<transfer-wise:webhooks-applications-create
+			doc:name="Webhooks (Application) - Create subscription" doc:id="075f78dd-6bcc-489c-a85d-42419510e923"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]" />
+	</flow>
+	<flow name="sample-application-webhooks-delete-by-id" doc:id="43f08ece-cb7d-494f-80e2-b8e4b6ecb0ca">
+		<transfer-wise:webhooks-applications-delete-by-id
+			doc:name="Webhooks (Application) - Delete subscription by id" doc:id="4190e064-5123-41df-a321-f86d674e7d44"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			id="#[vars.subscriptionId]" />
+	</flow>
+	<flow name="sample-application-webhooks-get-by-id" doc:id="beb38b58-391f-4777-a633-518a487b201d">
+		<transfer-wise:webhooks-applications-get-by-id
+			doc:name="Webhooks (Application) - Get subscription by id" doc:id="503a2553-c0a6-4f94-9f18-74d1130594a1"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			id="#[vars.subscriptionId]" />
+	</flow>
+	<flow name="sample-application-webhooks-list" doc:id="330d4dc8-a979-46a0-9905-133d76e41133">
+		<transfer-wise:webhooks-applications-list
+			doc:name="Webhooks (Application) - Get subscription list" doc:id="ab766f48-2324-4d96-a7c6-2113ef645beb"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]" />
+	</flow>
+</mule>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:transfer-wise="http://www.mulesoft.org/schema/mule/transfer-wise"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/transfer-wise http://www.mulesoft.org/schema/mule/transfer-wise/current/mule-transfer-wise.xsd">
+	<flow name="sample-users-create" doc:id="61115442-e441-48e4-b66d-79eca32decab">
+		<transfer-wise:users-create doc:name="Users - Create new user"
+			doc:id="761f31a4-5ced-4eb5-afd7-b83d47446390" config-ref="TransferWise_Config"
+			accessToken="#[vars.accessToken]" />
+	</flow>
+	<flow name="sample-users-logged-user" doc:id="c02c2a86-b4e8-48b6-a73a-770da5ac9f54">
+		<transfer-wise:users-me
+			doc:name="Users - Get the currently logged in user (me)" doc:id="6fc2552c-126b-4433-b193-275a33f16283"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]" />
+	</flow>
+	<flow name="sample-users-get-by-id" doc:id="1d977c9e-1cce-474e-b40e-47c85008138e">
+		<transfer-wise:users-get-by-id userId="#[vars.userid]"
+			doc:name="Users - Get user by id" doc:id="a97c4d6c-51f3-4df6-96d3-47ffd8b8129a"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]" />
+	</flow>
+</mule>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:file="http://www.mulesoft.org/schema/mule/file"
+	xmlns:transfer-wise="http://www.mulesoft.org/schema/mule/transfer-wise" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/transfer-wise http://www.mulesoft.org/schema/mule/transfer-wise/current/mule-transfer-wise.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd">
+
+	<flow name="sample-transfers-create-transfer" doc:id="74301ab0-adea-4496-9f5c-d8f69e0ca588">
+		<transfer-wise:transfers-create
+			doc:name="Transfers - Create transfer" doc:id="c5f45f0f-5a9a-4336-a5a0-100bddea9590"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]" />
+	</flow>
+	<flow name="sample-transfers-create-third-party-transfer" doc:id="ab8a3765-adde-499c-bb01-69156e51db69">
+		<transfer-wise:transfers-create-third-party-transfer
+			doc:name="Transfers - Create third-party transfer" doc:id="4d2f8a4e-4e26-4112-a9cf-45fe8dda7612"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			profileId="#[vars.profileId]" />
+	</flow>
+	<flow name="sample-transfers-fund-transfer" doc:id="1de25105-614a-4a24-a339-0eee3ef4ff09">
+		<transfer-wise:transfers-fund doc:name="Transfers - Fund transfer"
+			doc:id="2687b100-2e0f-4278-ba45-af537399bd9e" config-ref="TransferWise_Config"
+			accessToken="#[vars.accessToken]"
+			transferId="#[vars.transferId]" />
+	</flow>
+	<flow name="sample-transfers-cancel-transfer" doc:id="eae2e342-c8ad-43a8-808e-fefbeb9aed90">
+		<transfer-wise:transfers-cancel
+			doc:name="Transfers - Cancel transfer" doc:id="d54b55e1-c77a-4446-8801-edf292cfcbb3"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			transferId="#[vars.transferId]" />
+	</flow>
+	<flow name="sample-transfers-delivery-estimate" doc:id="5c001d7a-03a1-42a2-9edb-12c428794838">
+		<transfer-wise:transfers-get-delivery-estimate
+			doc:name="Transfers - Get delivery estimate" doc:id="441d5bde-3981-49a5-8728-1669a45f5c81"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			transferId="#[vars.transferId]" />
+	</flow>
+	<flow name="sample-transfers-receipt-pdf" doc:id="e134cd0b-30f4-4ace-af96-5db77b15d26d">
+		<transfer-wise:transfers-get-receipt-pdf
+			doc:name="Transfers - Get receipt PDF" doc:id="a080a1de-f763-47ec-b15d-2413c51bf002"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			transferId="#[vars.transferId]" />
+		<file:write doc:name="Write transferReceipt.pdf" doc:id="8fa52b1c-a22f-41b0-85e2-2ffa88b5e688" config-ref="File_Config" path="transferReceipt.pdf"/>
+		<logger level="INFO" doc:name="Logger - STORED PATH" doc:id="d6d2246e-88c5-4fc1-9fd0-4499dbb89ba7" message="#['Transfer receipt pdf stored at: ' ++ p('java.io.tmpdir') ++ 'transferReceipt.pdf']"/>
+	</flow>
+	<flow name="sample-transfers-get-by-id" doc:id="f90badc8-2d77-4e74-97ee-a992645adcc8">
+		<transfer-wise:transfers-get-by-id
+			doc:name="Transfers - Get transfer by id" doc:id="4e86febf-72f5-4698-85f4-da326ad42398"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			transferId="#[vars.transferId]" />
+	</flow>
+	<flow name="sample-transfers-get-issues" doc:id="6d4e4b02-b373-42f6-98a9-b1ebd2203857">
+		<transfer-wise:transfers-get-issues
+			doc:name="Transfers - Get transfer's issues" doc:id="b377c82f-3430-4b4e-bb8c-28f640765f23"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			transferId="#[vars.transferId]" />
+	</flow>
+	<flow name="sample-transfers-list" doc:id="498ed566-f8de-482c-aaf5-74d3fa71cbda">
+		<transfer-wise:transfers-list doc:name="Transfers - Get transfers list"
+			doc:id="59f1b130-1d6f-44ff-8292-bfa980a7bf92" config-ref="TransferWise_Config"
+			accessToken="#[vars.accessToken]">
+			<transfer-wise:transfers-filter
+				offset="0" limit="20" />
+		</transfer-wise:transfers-list>
+	</flow>
+	<flow name="sample-transfers-update-requirements" doc:id="bcabe1c2-c752-4826-97be-b5d59dd616b3">
+		<transfer-wise:transfers-update-requirements
+			doc:name="Transfers - Update requirements" doc:id="1349ccca-675a-4c2f-85be-f10983e8e9dd"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]" />
+	</flow>
+</mule>

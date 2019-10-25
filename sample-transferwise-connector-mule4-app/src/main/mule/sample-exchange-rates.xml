@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:transfer-wise="http://www.mulesoft.org/schema/mule/transfer-wise"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/transfer-wise http://www.mulesoft.org/schema/mule/transfer-wise/current/mule-transfer-wise.xsd">
+	<flow name="sample-exchange-rates-list" doc:id="f99ecb6d-eb6a-4012-bb71-c9f3bf9bb59d">
+		<transfer-wise:exchange-rates-list
+			doc:name="Exchange Rates - list" doc:id="21c4c1f1-c378-4ebd-8f42-c394a111b00b"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]">
+			<transfer-wise:rates-filter
+				from='#[now() as String { format: "yyyy-MM-dd"}]'
+				sourceCurrencyCode="EUR" group="day" />
+		</transfer-wise:exchange-rates-list>
+	</flow>
+</mule>

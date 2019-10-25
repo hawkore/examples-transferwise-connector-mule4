@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="sample-terms-and-conditions-test-suite.xml" />
+	<munit:test name="sample-terms-and-conditionsTest" description="Test" doc:id="8437b2f2-7c90-41ff-8cf5-251387691918" >
+		<munit:execution >
+					<munit:set-event doc:name="Set Event" doc:id="3fb637c9-36f6-4366-a103-5b573b60edcb" >
+				<munit:variables >
+					<munit:variable key="accessToken" value="${api.sandbox.access.token}" />
+				</munit:variables>
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to sample-terms-and-conditions" doc:id="d12c19ae-07df-4144-bd57-b8ccf9a79da4" name="sample-terms-and-conditions"/>
+		</munit:execution>
+	</munit:test>
+
+</mule>

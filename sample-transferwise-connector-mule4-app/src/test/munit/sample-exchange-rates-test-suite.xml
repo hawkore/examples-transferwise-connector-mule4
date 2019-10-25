@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="sample-exchange-rates-test-suite.xml" />
+	<munit:test name="sample-exchange-rates-listTest" description="Test" doc:id="26505b10-8626-49c4-9c40-bcb58988e0c3" >
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="13ee68f0-b7c3-4120-a210-382c7aceb59e" >
+				<munit:variables >
+					<munit:variable key="accessToken" value="${api.sandbox.access.token}" />
+				</munit:variables>
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to sample-exchange-rates-list" doc:id="e6a510f5-ef63-4985-8625-1ed3b12fcddc" name="sample-exchange-rates-list"/>
+		</munit:execution>
+	</munit:test>
+
+</mule>

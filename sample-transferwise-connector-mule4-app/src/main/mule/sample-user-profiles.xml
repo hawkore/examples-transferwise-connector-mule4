@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:transfer-wise="http://www.mulesoft.org/schema/mule/transfer-wise"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/transfer-wise http://www.mulesoft.org/schema/mule/transfer-wise/current/mule-transfer-wise.xsd">
+	<flow name="sample-user-profiles-add-business-directors" doc:id="a78fe5ec-ae7a-40a2-89ef-c6f6b95904e2">
+		<transfer-wise:user-profiles-add-business-directors
+			doc:name="User profiles - Add business directors" doc:id="ae5aee03-7568-4147-88fa-5f4def57614a"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			profileId="#[vars.profileId]" />
+	</flow>
+	<flow name="sample-user-profiles-add-ubos" doc:id="59384ad0-e2a7-42bd-9a88-73696f866630">
+		<transfer-wise:user-profiles-add-ubos
+			doc:name="User profiles - Add business ultimate beneficial owners"
+			doc:id="63458640-0f4b-4d8e-ab4f-3333790680d3" config-ref="TransferWise_Config"
+			accessToken="#[vars.accessToken]" profileId="#[vars.profileId]" />
+	</flow>
+	<flow name="sample-user-profiles-add-identitification-document" doc:id="b7c587e3-ae6f-4eaf-ae15-1b491dff0e15">
+		<transfer-wise:user-profiles-add-identification-doc
+			doc:name="User profiles - Add identification document" doc:id="77a5c584-70d3-402d-a501-61a40634b259"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			profileId="#[vars.profileId]" />
+	</flow>
+	<flow name="sample-user-profiles-close-window" doc:id="1f2c1bdd-b393-4b03-9ed3-0ac49bacf931">
+		<transfer-wise:user-profiles-close-window
+			doc:name="User profiles - Close update window" doc:id="110b3e07-554a-465e-95d4-e4ebaa367694"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			profileId="#[vars.profileId]" />
+	</flow>
+	<flow name="sample-user-profiles-create-business-profile" doc:id="c0ca2edf-46c4-47dc-984e-da4cf017cb43">
+		<transfer-wise:user-profiles-create-business
+			doc:name="User profiles - Create business profile" doc:id="cd564edc-ce88-4067-adcc-6e7a6daefebc"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]" />
+	</flow>
+	<flow name="sample-user-profiles-create-personal-profile" doc:id="fe768668-0110-4649-87c9-e8b3fbd38cf5">
+		<transfer-wise:user-profiles-create-personal
+			doc:name="User profiles - Create personal profile" doc:id="583ea8e8-5f97-42ec-bd86-057e49c2ee5f"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]" />
+	</flow>
+	<flow name="sample-user-profiles-delete-business-directors" doc:id="791c6d79-6076-4f25-ab2e-c99c3c5abbca">
+		<transfer-wise:user-profiles-delete-business-directors
+			doc:name="User profiles - Delete business directors" doc:id="231cf0bd-8e05-4e17-9e36-3e338bbcba72"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			profileId="#[vars.profileId]" />
+	</flow>
+	<flow name="sample-user-profiles-get-business-directors" doc:id="26dfe017-0892-4bb1-933e-5b5b1ba450dd">
+		<transfer-wise:user-profiles-get-business-directors
+			doc:name="User profiles - Get business directors" doc:id="112b632b-15d8-425a-8fea-1d0ac2a8fed8"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			profileId="#[vars.profileId]" />
+	</flow>
+	<flow name="sample-user-profiles-get-ubos" doc:id="3aca5f08-1665-4e6a-8137-d008b8285d78">
+		<transfer-wise:user-profiles-get-ubos
+			doc:name="User profiles - Get business ultimate beneficial owners"
+			doc:id="7efc6b56-03ce-4869-9717-dd4977541e01" config-ref="TransferWise_Config"
+			accessToken="#[vars.accessToken]" profileId="#[vars.profileId]" />
+	</flow>
+	<flow name="sample-user-profiles-get-by-id" doc:id="e09677e5-79ef-4bae-a83a-11dd7b68ffbd">
+		<transfer-wise:user-profiles-get-by-id
+			doc:name="User profiles - Get profile by id" doc:id="33bb6466-132e-4255-8536-9eab3c8959c2"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			profileId="#[vars.profileId]" />
+	</flow>
+	<flow name="sample-user-profiles-list" doc:id="9e2fcdc3-e30c-4d5b-8806-96a27b2482fe">
+		<transfer-wise:user-profiles-list
+			doc:name="User profiles - Get user profiles list" doc:id="0b043944-744e-4101-95bb-e051cb75621a"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]" />
+	</flow>
+	<flow name="sample-user-profiles-open-window" doc:id="abe4709e-0a50-4517-aadb-aae97c3c75de">
+		<transfer-wise:user-profiles-open-window
+			doc:name="User profiles - Open update window" doc:id="d3bf5dbb-db5a-40fa-a2e1-8c27e0f5515d"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			profileId="#[vars.profileId]" />
+	</flow>
+	<flow name="sample-user-profiles-update-business-directors" doc:id="94278586-6aff-48c3-8de8-e7108b15e5c5">
+		<transfer-wise:user-profiles-update-business-directors
+			doc:name="User profiles - Update business directors" doc:id="b83eacd3-60ce-413f-a3a4-91427017a34f"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			profileId="#[vars.profileId]" />
+	</flow>
+	<flow name="sample-user-profiles-update-business-profile" doc:id="29714618-a452-4f7f-875a-60f5de823e96">
+		<transfer-wise:user-profiles-update-business
+			doc:name="User profiles - Update business profile" doc:id="8292a882-50fe-45eb-bd88-b96394613e57"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]" />
+	</flow>
+	<flow name="sample-user-profiles-update-ubos" doc:id="c682d27b-3586-4c9b-962d-9b15a0141b79">
+		<transfer-wise:user-profiles-update-ubos
+			doc:name="User profiles - Update business ultimate beneficial owners"
+			doc:id="b1eb88f9-a634-4c2f-8d41-503c83550b50" config-ref="TransferWise_Config"
+			accessToken="#[vars.accessToken]" profileId="#[vars.profileId]" />
+	</flow>
+	<flow name="sample-user-profiles-update-personal-profile" doc:id="32ba55b9-8979-4f07-8960-22d2ef557ca2">
+		<transfer-wise:user-profiles-update-personal
+			doc:name="User profiles - Update personal profile" doc:id="b3af1eb7-60b5-4377-b653-d0acf656f535"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]" />
+	</flow>
+</mule>

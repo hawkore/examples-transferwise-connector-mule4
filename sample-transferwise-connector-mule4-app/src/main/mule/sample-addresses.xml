@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:transfer-wise="http://www.mulesoft.org/schema/mule/transfer-wise" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/transfer-wise http://www.mulesoft.org/schema/mule/transfer-wise/current/mule-transfer-wise.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="sample-addresses-create" doc:id="10bb33c1-407e-4c17-a65d-8651da6b8e78">
+		<transfer-wise:addresses-create
+			doc:name="Addresses - Create address" doc:id="20a9e803-e498-4e42-8f69-1122b930e85d"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]" />
+	</flow>
+	<flow name="sample-addresses-get-by-id" doc:id="2c713b21-3651-4037-ab59-f85392bb091e">
+		<transfer-wise:addresses-get-by-id
+			doc:name="Addresses - Get address by id" doc:id="345e633f-1213-4492-ae2a-9a79029d510c"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
+			addressId="#[vars.addressId]" />
+	</flow>
+	<flow name="sample-addresses-get-requirements" doc:id="db9245e8-141e-422a-82e6-338788ad40cc">
+		<transfer-wise:addresses-get-requirements
+			doc:name="Addresses - Get requirements" doc:id="da3869ec-579b-42b7-b5a1-d304d3bcce91"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]" />
+	</flow>
+	<flow name="sample-addresses-update-requirements" doc:id="b14c0fb7-6ef2-484e-8e09-ad8a2b3cff2b">
+		<transfer-wise:addresses-update-requirements
+			doc:name="Addresses - Update requirements" doc:id="37035b55-9853-40ab-b51f-4e3951442a9c"
+			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]" />
+	</flow>
+	<flow name="sample-addresses-list" doc:id="cced7e55-269a-4dbf-ab9c-3cb5e9b78c72">
+		<transfer-wise:addresses-list doc:name="Addresses - Get addresses list"
+			doc:id="8cd71d4c-3a3b-4f73-9dc1-9223c70c31eb" config-ref="TransferWise_Config"
+			accessToken="#[vars.accessToken]" profileId="#[vars.profileId]" />
+	</flow>
+</mule>

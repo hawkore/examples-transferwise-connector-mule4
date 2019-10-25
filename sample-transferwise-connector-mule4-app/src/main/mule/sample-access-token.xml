@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:transfer-wise="http://www.mulesoft.org/schema/mule/transfer-wise"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/transfer-wise http://www.mulesoft.org/schema/mule/transfer-wise/current/mule-transfer-wise.xsd">
+	<flow name="sample-access-token-authorization-code" doc:id="ee70ba1a-b207-41d6-9ba9-56f23ba8f9af">
+		<http:listener doc:name="Listener to reveive OAuth authorization code"
+			doc:id="295d7bb4-f441-4287-b5af-dc4f381ef7c1" config-ref="HTTP_LISTENER_TO_RECEIVE_TRANSFER_WISE_MESSAGES"
+			path="/transfer-wise-oauth">
+			<http:response >
+				<http:body ><![CDATA[#[output text/plain --- ""]]]></http:body>
+			</http:response>
+		</http:listener>
+		<transfer-wise:access-token-by-authorization-code doc:name="Access Token - Get by authorization code" doc:id="aa40722a-6cfc-4602-b189-f16cff95c48f" config-ref="TransferWise_Config" redirectUri="${your.oauth.public.redirect_uri}" code='#[attributes.queryParams["code"]]'/>
+						<logger level="INFO" doc:name="Store access token / refresh token to use later on operations" doc:id="4dfb47d2-cba4-408a-af25-eb16e27bf92a" message="#[write(payload, 'application/json')]"/>
+	</flow>
+	<flow name="sample-access-token-registration-code" doc:id="fda5acb3-ea0d-4399-96c4-5a46e7d3472d" >
+		<transfer-wise:access-token-by-registration-code doc:name="Access Token - Get by registration code" doc:id="f86e7eff-1789-4f72-bcaf-eaa9f59d0733" config-ref="TransferWise_Config" email="#[vars.newUserEmail]" registrationCode="#[vars.registrationCode]"/>
+							<logger level="INFO" doc:name="Store access token / refresh token to use later on operations" doc:id="7a81dbcf-8e29-4672-8451-88db1483b84b" message="#[write(payload, 'application/json')]"/>
+	</flow>
+	<flow name="sample-access-token-client-credentials" doc:id="0899631e-8796-4e66-9cdb-456d48a731f1" >
+		<transfer-wise:access-token-by-client-credencials doc:name="Access Token - Get by client credentials" doc:id="288e3352-d99c-43e4-8bc3-e193045d1f8d" config-ref="TransferWise_Config"/>
+							<logger level="INFO" doc:name="Store access token / refresh token to use later on operations" doc:id="07f696ae-007a-4405-87b2-fca3f153365a" message="#[write(payload, 'application/json')]"/>
+	</flow>
+		<flow name="sample-access-token-refresh-token" doc:id="8c3a799a-6e56-43b7-ad91-a58a62c5d41b" >
+		<transfer-wise:access-token-refresh doc:name="Access Token - Refresh" doc:id="a99440d0-f05c-4397-b7b4-f67957a97008" config-ref="TransferWise_Config" refreshToken="#[vars.refreshToken]"/>
+							<logger level="INFO" doc:name="Store access token / refresh token to use later on operations" doc:id="8c9e0a9f-b5d3-4e38-9a46-f15af4da744d" message="#[write(payload, 'application/json')]"/>
+	</flow>
+
+	</mule>

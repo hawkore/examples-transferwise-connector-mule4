@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:transfer-wise="http://www.mulesoft.org/schema/mule/transfer-wise"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/transfer-wise http://www.mulesoft.org/schema/mule/transfer-wise/current/mule-transfer-wise.xsd">
+
+	<flow name="sample-webhook-events-transfer-status-change-event" doc:id="2ab42c63-6b71-4a89-bc9c-7a43c8455b46">
+		<http:listener doc:name="transfer-status-change-event POST Listener"
+			doc:id="d9541d88-bf45-48d7-978e-3469e6002dba" config-ref="HTTP_LISTENER_TO_RECEIVE_TRANSFER_WISE_MESSAGES"
+			path="/transfer-status-change-event" allowedMethods="POST">
+			<http:response >
+				<http:body ><![CDATA[#[output text/plain --- ""]]]></http:body>
+			</http:response>
+		</http:listener>
+		<transfer-wise:webhooks-events-transfer-status-change doc:name="Webhooks (Events) - Process transfer status change event" doc:id="4c84bbf4-a985-47b7-94db-0255e6892e88" config-ref="TransferWise_Config"  xSignature='#[attributes.headers["X-Signature"]]' received-event-payload="#[payload]" verifySignature='#[p("webhooks.events.verifySignature")]'/>
+				<logger level="INFO" doc:name="Do something with this event" doc:id="6c948858-1519-40c1-acf1-9aee0457623a" message="#[write(payload, 'application/json')]"/>
+	</flow>
+		<flow name="sample-webhook-events-transfer-issue-event" doc:id="987831f7-cd92-4727-9ad2-1a3451380777" >
+		<http:listener doc:name="transfer-issue-event POST Listener" doc:id="e93b2925-9ed3-4db8-ab11-72e7c89d97cf" config-ref="HTTP_LISTENER_TO_RECEIVE_TRANSFER_WISE_MESSAGES" path="/transfer-issue-event" allowedMethods="POST">
+			<http:response >
+				<http:body ><![CDATA[#[output text/plain --- ""]]]></http:body>
+			</http:response>
+		</http:listener>
+		<transfer-wise:webhooks-events-transfer-issue doc:name="Webhooks (Events) - Process transfer issue event" doc:id="23502699-3052-4cde-ad9d-a40af79476c5" config-ref="TransferWise_Config"  xSignature='#[attributes.headers["X-Signature"]]' received-event-payload="#[payload]" verifySignature='#[p("webhooks.events.verifySignature")]'/>
+				<logger level="INFO" doc:name="Do something with this event" doc:id="31b8cbf2-41b9-4bea-84a1-1340289e74db" message="#[write(payload, 'application/json')]"/>
+	</flow>
+		<flow name="sample-webhook-events-balance-deposit-event" doc:id="2f9e5065-f184-4b97-9a64-b9e62b6366ea" >
+		<http:listener doc:name="balance-deposit-event POST Listener" doc:id="c9cdfef9-ea62-4359-9a99-9fb7d11d4a04" config-ref="HTTP_LISTENER_TO_RECEIVE_TRANSFER_WISE_MESSAGES" path="/balance-deposit-event" allowedMethods="POST">
+			<http:response >
+				<http:body ><![CDATA[#[output text/plain --- ""]]]></http:body>
+			</http:response>
+		</http:listener>
+		<transfer-wise:webhooks-events-balance-deposit doc:name="Webhooks (Events) - Process balance deposit event" doc:id="e4cd1ec3-6227-4bf8-8b19-9116125be634" config-ref="TransferWise_Config" xSignature='#[attributes.headers["X-Signature"]]' received-event-payload="#[payload]" verifySignature='#[p("webhooks.events.verifySignature")]'/>
+		<logger level="INFO" doc:name="Do something with this event" doc:id="37b88ba4-db93-4c11-95db-c8b0737deba7" message="#[write(payload, 'application/json')]"/>
+	</flow>
+</mule>
