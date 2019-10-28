@@ -11,7 +11,7 @@
 
 ## Valid product license required
 
-You will need a valid product license to run/testing TransferWise Connector for Mule 4.
+You will need a valid product license to run/test TransferWise Connector for Mule 4.
 
 Put your license for TransferWise Connector for Mule 4 in `src/main/resources` directory.
 

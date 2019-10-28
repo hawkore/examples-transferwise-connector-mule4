@@ -33,6 +33,8 @@
 			<flow-ref doc:name="Flow-ref to sample-quotes-create" doc:id="36cb135f-99e8-46cc-b216-78b603be01e2" name="sample-quotes-create"/>
 			<set-variable value='#[payload]' doc:name="createdQuote" doc:id="4fef26fc-2e18-4ae7-9bde-d0506f5a78f3" variableName="createdQuote"/>	
 			<set-variable value="#[vars.createdQuote.id]" doc:name="quoteId" doc:id="124cfa00-bc1c-4b3d-b66c-231c498faa30" variableName="quoteId"/>
+			<flow-ref doc:name="Flow Reference to sample-quotes-get-by-id" doc:id="f272349f-c951-496c-86da-5f3c9346c699" name="sample-quotes-get-by-id"/>
+			<flow-ref doc:name="Flow Reference to sample-quotes-get-payin-methods" doc:id="09f6f98a-1735-4d60-94e8-67fef488b8e2" name="sample-quotes-get-payin-methods"/>
 			<flow-ref doc:name="Flow-ref to sample-recipient-account-get-requirements" doc:id="8781de61-7ad1-4902-8c22-a61179edf81a" name="sample-recipient-account-get-requirements"/>
 			<set-payload value='#[output application/java
 ---
@@ -75,6 +77,9 @@
 			<set-variable value="#[vars.createdTransfer.id]" doc:name="transferId" doc:id="94551f8e-a653-4398-beea-df1e1f1e0000" variableName="transferId"/>
 			<flow-ref doc:name="Flow-ref to sample-transfers-fund-transfer" doc:id="f9ad8947-4dd6-40ea-937c-555d1f05b760" name="sample-transfers-fund-transfer"/>
 			<flow-ref doc:name="Flow-ref to sample-transfers-delivery-estimate" doc:id="35ddb47a-7a02-4e3e-b2cd-a4572e4c36f4" name="sample-transfers-delivery-estimate"/>
+			<flow-ref doc:name="Flow Reference to sample-transfers-get-by-id" doc:id="a978e285-6fc2-4d62-a3dd-5776c756fc84" name="sample-transfers-get-by-id"/>
+			<flow-ref doc:name="Flow Reference to sample-transfers-get-issues" doc:id="482c1ab8-c7bb-4000-85cb-6fe395bb9fda" name="sample-transfers-get-issues"/>
+			<flow-ref doc:name="Flow Reference to sample-transfers-list" doc:id="cd7e9ddc-d4b7-421d-95b3-9d2e39dcdd69" name="sample-transfers-list"/>
 			<set-variable value="PROCESSING" doc:name="newStatus PROCESSING" doc:id="ba22a98f-c0a7-467a-bfc5-c607f243c23d" variableName="newStatus" />
 			<flow-ref doc:name="Flow Reference to sample-simulate-transfer-processing" doc:id="6cf3b3ac-a277-4b0f-836a-16a129a4e45f" name="sample-simulate-transfer-processing" />
 			<set-variable value="FUNDS_CONVERTED" doc:name="newStatus FUNDS_CONVERTED" doc:id="5d0193f1-0aa5-4f18-bbdb-37e623284877" variableName="newStatus"/>

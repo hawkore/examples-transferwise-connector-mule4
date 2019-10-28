@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="sample-users-test-suite.xml" />
+	<munit:test name="sample-users-test-suite-sample-users-logged-userTest" description="Test" doc:id="919c00f6-6f1b-4151-a577-9e89acd75c73" >
+		<munit:execution >
+					<munit:set-event doc:name="Set Event" doc:id="78a843ee-e072-4e3a-9a5a-17d76f84148e" >
+				<munit:variables >
+					<munit:variable key="accessToken" value="${api.sandbox.access.token}" />
+				</munit:variables>
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to sample-users-logged-user" doc:id="bba48677-fbd7-4a99-9551-e1a644f6e50b" name="sample-users-logged-user"/>
+			<set-variable value="#[payload.id]" doc:name="userId" doc:id="b759949c-81fa-48f6-adef-396b2091453f" variableName="userId"/>
+			<flow-ref doc:name="Flow Reference to sample-users-get-by-id" doc:id="4b1aced8-67b0-4d1f-908d-63830d92420b" name="sample-users-get-by-id"/>
+		</munit:execution>
+	</munit:test>
+
+</mule>
