@@ -3,7 +3,7 @@
 # Steps to test
 
 1. Import this application into Anypoint Studio 7+ (Recomended version 7.3.4).
-2. Create an account for [TransferWise Sandbox environment](https://sandbox.transferwise.tech).
+2. Create an account for [TransferWise Sandbox environment](https://sandbox.transferwise.tech). During the account creation, you must select 'Business' as the account type.
 3. Generate a **Full Access** token (access token): go to [TransferWise User Settings](https://sandbox.transferwise.tech/user/settings) (API tokens -> Add token)
 4. Open 'src/main/resources/transferwise.properties' file and set `api.sandbox.access.token` property with the access token generated on step 3.
 5. Run `mvn test` from command line at this project root directory or right click over project -> MUnit -> Run tests in Anypoint Studio 7+.

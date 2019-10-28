@@ -16,13 +16,14 @@
 				</munit:variables>
 			</munit:set-event>
 			<flow-ref doc:name="Flow-ref to sample-user-profiles-list" doc:id="792a2a49-7c64-4ee2-ba7b-77ac54b8995f" name="sample-user-profiles-list"/>		
-			<set-variable value='#[payload[0]]' doc:name="profile" doc:id="49147cab-84ca-4afa-8c7d-767513a9341b" variableName="profile"/>		
+			<set-variable value='#[payload[1]]' doc:name="profile (business)" doc:id="49147cab-84ca-4afa-8c7d-767513a9341b" variableName="profile"/>		
 		   <set-variable value="#[vars.profile.id]" doc:name="profileId" doc:id="8db393cd-aeb2-4f78-8467-40bd3c372563" variableName="profileId"/>
 			<set-payload value='#[output application/java
 ---
 { 
+	"profile": vars.profileId default 0 as Number,
     "source": "GBP",
-    "target": "BDT",
+    "target": "USD",
     "sourceAmount": "100",
     "rateType": "FIXED",
     "type": "BALANCE_CONVERSION"
@@ -35,23 +36,23 @@
 			<flow-ref doc:name="Flow-ref to sample-recipient-account-get-requirements" doc:id="8781de61-7ad1-4902-8c22-a61179edf81a" name="sample-recipient-account-get-requirements"/>
 			<set-payload value='#[output application/java
 ---
-{
-    "type": "bangladesh",
-    "accountHolderName":"Joe Bangladesh A",
-    "currency":"BDT",
-    "country": "BD",
-    "details" : {
-        "bankCode": "025",
-        "legalType": "PRIVATE",
-        "branchCode":"025060009",
-        "accountNumber":"5000000005",
-        "address":{
-	        	"country":"BD",
-	        	"city":"Somewhere",
-	        	"firstLine":"1 A road",
-	        	"postCode":"11111"
-        	}
-     }
+{ 
+     "profile": vars.profileId default 0 as Number,
+     "accountHolderName": "Joe USA",
+     "currency": "USD",
+     "type": "aba",
+     "details": {
+      "legalType": "PRIVATE",
+      "abartn": "111000025",
+      "accountNumber": "12345678",
+      "accountType": "CHECKING",
+      "address" : {
+         "country": "GB",
+         "city": "London",
+         "postCode": "10025",
+         "firstLine": "50 Branson Ave"
+        }
+      }
 } as Object {
 	class : "com.hawkore.mule.extensions.transferwise.api.model.CreateAccountRequest"
 }]' doc:name="recipient account to create" doc:id="fd5ba7da-b3c9-40f8-b353-765c0f2c1bbb" />		
@@ -63,7 +64,7 @@
     "targetAccount": vars.createdRecipientAccount.id,   
     "quote": vars.createdQuote.id,
     "details" : {
-        "reference" : "Sample reference"
+        "reference" : "testRef"
     },
     "customerTransactionId" : uuid() as String
 } as Object {
