@@ -2,6 +2,8 @@
 
 Hi! This is Hawkore's TransferWise connector for Mule 4 samples project.
 
+![howitworks](assets/how-it-works.png)
+
 *All company names, logos, brand names and trademarks are property of their respective owners. All company, product and service names used in this product are for identification purposes only. Use of these names, logos, and brands does not imply endorsement.*
 
 ## Requirements
