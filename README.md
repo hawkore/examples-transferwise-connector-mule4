@@ -1,6 +1,8 @@
-# Hawkore's TransferWise connector for Mule 4 samples project
+# Hawkore's TransferWise connector for Mule 4
 
-Hi! This is Hawkore's TransferWise connector for Mule 4 samples project.
+This connector allows you integrate your Mule applications with **TransferWise** services. 
+
+_TransferWise is authorized by the Financial Conduct Authority under the Electronic Money Regulations 2011, Firm Reference 900507, for the issuing of electronic money._
 
 ![howitworks](assets/how-it-works.png)
 
@@ -19,7 +21,7 @@ Hi! This is Hawkore's TransferWise connector for Mule 4 samples project.
 
 ## Content
 
-1. `sample-transferwise-connector-mule4-appp`: Sample mule 4 application for testing [Hawkore's TransferWise connector for Mule 4
+1. `sample-transferwise-connector-mule4-appp`: Mule 4 application to test [Hawkore's TransferWise connector for Mule 4
 ](https://docs.hawkore.com/private/transferwise-connector-mule4/). See [README.md](sample-transferwise-connector-mule4-app/README.md) for more info.
 
 
