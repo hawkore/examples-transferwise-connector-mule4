@@ -1,6 +1,6 @@
-# Hawkore's TransferWise connector for Mule 4
+# Connect TransferWise with Mule 4
 
-This connector allows you integrate your Mule applications with **TransferWise** services. 
+This connector allows you to integrate your Mule applications with **TransferWise** services. 
 
 _TransferWise is authorized by the Financial Conduct Authority under the Electronic Money Regulations 2011, Firm Reference 900507, for the issuing of electronic money._
 

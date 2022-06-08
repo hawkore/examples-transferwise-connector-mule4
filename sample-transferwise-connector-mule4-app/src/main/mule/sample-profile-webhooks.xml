@@ -27,6 +27,6 @@ http://www.mulesoft.org/schema/mule/transfer-wise http://www.mulesoft.org/schema
 		<transfer-wise:webhooks-profiles-list
 			doc:name="Webhooks (Profile) - Get subscription list" doc:id="d8fae38d-33a8-47c7-ad2f-add61860a864"
 			config-ref="TransferWise_Config" accessToken="#[vars.accessToken]"
-			profileId="#[vars.profileId]" " />
+			profileId="#[vars.profileId]" />
 	</flow>
 </mule>
